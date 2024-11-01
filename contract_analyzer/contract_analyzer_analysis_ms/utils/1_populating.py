@@ -2,12 +2,18 @@ from faker import Faker
 from pymongo import MongoClient
 import random
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
+from pathlib import Path
+import os
+
+dotenv_path = Path('./.env')
+load_dotenv(dotenv_path=dotenv_path)
 
 # Set up Faker and MongoDB client
 fake = Faker()
-client = MongoClient("")  # Update with your MongoDB URI if necessary
-db = client["contract_analyzer_database"]  # Database name
-collection = db["contract_analyzer_analysis_db"]  # Collection name
+client = MongoClient(os.getenv("URI"))
+db = client[os.getenv("DB")]
+col = db[os.getenv("COLLECTION")]
 
 # Function to generate contract metadata
 def generate_contract_metadata():
@@ -45,10 +51,10 @@ def generate_contract_metadata():
         "status": status
     }
 
-# Populate the collection with fake data
+# Populate the col with fake data
 def populate_contract_metadata(n=100):
     contracts = [generate_contract_metadata() for _ in range(n)]
-    collection.insert_many(contracts)
+    col.insert_many(contracts)
     print(f"{n} contract records inserted into MongoDB.")
 
 # Run the script to insert data
