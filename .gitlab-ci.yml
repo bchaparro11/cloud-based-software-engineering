@@ -16,23 +16,24 @@ test:
   script:
     # - pip install --no-cache-dir -r requirements.txt
     # - pytest
-    - echo "Test should be right here"
+    # - echo "Test should be right here"
+    - az login --service-principal -u ${AZ_USR} -p ${AZ_CERT} --tenant ${AZ_TENANT}
 
-build_publish:
-  image: docker
-  stage: build_publish
-  services:
-    - docker:dind
-  variables:
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_TLS_CERTDIR: ""
-  before_script:
-    - "MS_1_VERSION=$(awk -F ': ' '/^ms-version:/ {print $2}' version.yaml)"
-    - export MS_1_VERSION=${MS_1_VERSION}
-  script:
-      - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USER}" --password-stdin
-      - docker build -t bchaparro4/contract-analyzer-analysis-ms:${MS_1_VERSION} .
-      - docker push bchaparro4/contract-analyzer-analysis-ms:${MS_1_VERSION}
+# build_publish:
+#   image: docker
+#   stage: build_publish
+#   services:
+#     - docker:dind
+#   variables:
+#     DOCKER_HOST: tcp://docker:2375
+#     DOCKER_TLS_CERTDIR: ""
+#   before_script:
+#     - "MS_1_VERSION=$(awk -F ': ' '/^ms-version:/ {print $2}' version.yaml)"
+#     - export MS_1_VERSION=${MS_1_VERSION}
+#   script:
+#       - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USER}" --password-stdin
+#       - docker build -t bchaparro4/contract-analyzer-analysis-ms:${MS_1_VERSION} .
+#       - docker push bchaparro4/contract-analyzer-analysis-ms:${MS_1_VERSION}
 
 # deploy:
 #   stage: deploy
