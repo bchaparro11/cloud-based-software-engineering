@@ -16,7 +16,7 @@ test:
   script:
     # - pip install --no-cache-dir -r requirements.txt
     # - pytest
-    - echo "Test should be here"
+    - echo "Test should be right here"
 
 # build_publish:
 #   image: docker
