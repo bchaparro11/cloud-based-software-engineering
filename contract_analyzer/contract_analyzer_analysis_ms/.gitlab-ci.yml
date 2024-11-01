@@ -1,0 +1,52 @@
+# image: 
+#   name: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
+#   entrypoint: [""]
+
+stages:
+  - test
+  - build_publish
+  - deploy
+  # - plan
+  # - apply
+  # - destroy
+
+test:
+  stage: test
+  image: python:3.9-slim-buster
+  script:
+    # - pip install --no-cache-dir -r requirements.txt
+    # - pytest
+    - echo "Test should be here"
+
+# build_publish:
+#   image: docker
+#   stage: build_publish
+#   services:
+#     - docker:dind
+#   variables:
+#     DOCKER_HOST: tcp://docker:2375
+#     DOCKER_TLS_CERTDIR: ""
+#   before_script:
+#     - "MS_1_VERSION=$(awk -F ': ' '/^ms-version:/ {print $2}' version.yaml)"
+#     - export MS_1_VERSION=${MS_1_VERSION}
+#   script:
+#       - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USER}" --password-stdin
+#       - docker build -t bchaparro4/devopssre-ms-1:${MS_1_VERSION} .
+#       - docker push bchaparro4/devopssre-ms-1:${MS_1_VERSION}
+
+# deploy:
+#   stage: deploy
+#   image: google/cloud-sdk:latest
+#   before_script:
+#     - echo ${GCP_SERVICE_ACCOUNT_KEY} > gcp-key.json
+#     - "MS_1_VERSION=$(awk -F ': ' '/^ms-version:/ {print $2}' version.yaml)"
+#     - export MS_1_VERSION=${MS_1_VERSION}
+#   script:
+#     - gcloud auth activate-service-account --key-file=./gcp-key.json --project=${GCP_PROJECT}
+#     - gcloud container clusters get-credentials ${GKE_CLUSTER_NAME} --zone ${GCP_ZONE} --project ${GCP_PROJECT}
+#     # - kubectl get ns
+#     - echo "This is the version --> ${MS_1_VERSION}"
+#     - apt-get install -y gettext-base
+#     # - apt-getg y install getext-base
+#     - envsubst < ./k8s/ms-1-deployment.yaml | kubectl apply -f -
+#     # - envsubst < ./k8s/ms-1-deployment.yaml | cat
