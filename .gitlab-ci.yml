@@ -45,6 +45,7 @@ deploy:
   #   - export MS_1_VERSION=${MS_1_VERSION}
   script:
     - echo "Testing"
+    - curl -L https://aka.ms/InstallAzureCli | bash
     # - lsb_release -a 
     # - az login --service-principal -u ${AZ_USR} -p ${AZ_CERT} --tenant ${AZ_TENANT}
     # - az aks get-credentials --resource-group rsrc-grp-1 --name contract-analyzer-cluster --overwrite-existing
