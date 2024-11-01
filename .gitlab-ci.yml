@@ -10,14 +10,14 @@ stages:
   # - apply
   # - destroy
 
-test:
-  stage: test
-  image: mcr.microsoft.com/azure-cli
-  script:
-    # - pip install --no-cache-dir -r requirements.txt
-    # - pytest
-    # - echo "Test should be right here"
-    - az login --service-principal -u ${AZ_USR} -p ${AZ_CERT} --tenant ${AZ_TENANT}
+# test:
+#   stage: test
+#   image: mcr.microsoft.com/azure-cli
+#   script:
+#     # - pip install --no-cache-dir -r requirements.txt
+#     # - pytest
+#     - echo "Test should be right here"
+
 
 # build_publish:
 #   image: docker
@@ -35,19 +35,18 @@ test:
 #       - docker build -t bchaparro4/contract-analyzer-analysis-ms:${MS_1_VERSION} .
 #       - docker push bchaparro4/contract-analyzer-analysis-ms:${MS_1_VERSION}
 
-# deploy:
-#   stage: deploy
-#   image: google/cloud-sdk:latest
-#   before_script:
-#     - echo ${GCP_SERVICE_ACCOUNT_KEY} > gcp-key.json
-#     - "MS_1_VERSION=$(awk -F ': ' '/^ms-version:/ {print $2}' version.yaml)"
-#     - export MS_1_VERSION=${MS_1_VERSION}
-#   script:
-#     - gcloud auth activate-service-account --key-file=./gcp-key.json --project=${GCP_PROJECT}
-#     - gcloud container clusters get-credentials ${GKE_CLUSTER_NAME} --zone ${GCP_ZONE} --project ${GCP_PROJECT}
-#     # - kubectl get ns
-#     - echo "This is the version --> ${MS_1_VERSION}"
-#     - apt-get install -y gettext-base
-#     # - apt-getg y install getext-base
-#     - envsubst < ./k8s/ms-1-deployment.yaml | kubectl apply -f -
-#     # - envsubst < ./k8s/ms-1-deployment.yaml | cat
+deploy:
+  stage: deploy
+  image: mcr.microsoft.com/azure-cli
+  before_script:
+    - "MS_1_VERSION=$(awk -F ': ' '/^ms-version:/ {print $2}' version.yaml)"
+    - export MS_1_VERSION=${MS_1_VERSION}
+  script:
+    - az login --service-principal -u ${AZ_USR} -p ${AZ_CERT} --tenant ${AZ_TENANT}
+    - az aks get-credentials --resource-group rsrc-grp-1 --name contract-analyzer-cluster --overwrite-existing
+    - kubectl get ns
+    # - echo "This is the version --> ${MS_1_VERSION}"
+    # - apt-get install -y gettext-base
+    # # - apt-getg y install getext-base
+    # - envsubst < ./k8s/ms-1-deployment.yaml | kubectl apply -f -
+    # # - envsubst < ./k8s/ms-1-deployment.yaml | cat
