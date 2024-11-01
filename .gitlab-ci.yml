@@ -38,7 +38,7 @@ stages:
 deploy:
   stage: deploy
   # image: mcr.microsoft.com/azure-cli:cbl-mariner2.0
-  image: bitnami/azure-cli
+  image: python
   # before_script:
   #   - curl -L https://aka.ms/InstallAzureCli | bash
   #   - "MS_1_VERSION=$(awk -F ': ' '/^ms-version:/ {print $2}' version.yaml)"
