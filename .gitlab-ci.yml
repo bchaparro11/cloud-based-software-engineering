@@ -27,6 +27,9 @@ build_publish:
   before_script:
     - "MS_1_VERSION=$(awk -F ': ' '/^ms-version:/ {print $2}' version.yaml)"
     - export MS_1_VERSION=${MS_1_VERSION}
+    - echo "URI='${URI}'" >> config.py
+    - echo "DB='${DB}'" >> config.py
+    - echo "COLLECTION='${COLLECTION}'" >> config.py
   script:
       - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USER}" --password-stdin
       - docker build -t bchaparro4/contract-analyzer-analysis-ms:${MS_1_VERSION} .

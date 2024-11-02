@@ -2,14 +2,19 @@ from fastapi import FastAPI
 from pymongo import MongoClient
 from dotenv import load_dotenv
 from pathlib import Path
+from config import URI, DB, COLLECTION
 import os
 
-dotenv_path = Path('./.env')
-load_dotenv(dotenv_path=dotenv_path)
+# dotenv_path = Path('./.env')
+# load_dotenv(dotenv_path=dotenv_path)
 
-client = MongoClient(str(os.getenv("URI")))
-db = client[str(os.getenv("DB"))]
-col = db[str(os.getenv("COLLECTION"))]
+# client = MongoClient(str(os.getenv("URI")))
+# db = client[str(os.getenv("DB"))]
+# col = db[str(os.getenv("COLLECTION"))]
+
+client = MongoClient(URI)
+db = client[DB]
+col = db[COLLECTION]
 
 app = FastAPI()
 
