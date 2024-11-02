@@ -38,14 +38,12 @@ stages:
 deploy:
   stage: deploy
   image: ubuntu
-  # before_script:
-  #   - "MS_1_VERSION=$(awk -F ': ' '/^ms-version:/ {print $2}' version.yaml)"
-  #   - export MS_1_VERSION=${MS_1_VERSION}
-  script:
-    # - awk -W version
+  before_script:
     - "MS_1_VERSION=$(awk -F ': ' '/^ms-version:/ {print $2}' version.yaml)"
-    # - curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-    # - apt-get update && apt-get install -y awk curl && apt-get clean && rm -rf /var/lib/apt/lists/*
+    - export MS_1_VERSION=${MS_1_VERSION}
+  script:
+    - curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+    - az version
     # - az login --service-principal -u ${AZ_USR} -p ${AZ_CERT} --tenant ${AZ_TENANT}
     # - az aks get-credentials --resource-group rsrc-grp-1 --name contract-analyzer-cluster --overwrite-existing
     # - kubectl get ns
