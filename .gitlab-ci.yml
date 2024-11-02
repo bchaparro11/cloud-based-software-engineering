@@ -50,5 +50,5 @@ deploy:
     # - kubectl get ns
     - echo "This is the version --> ${MS_1_VERSION}"
     - apt-get install -y gettext-base
-    - envsubst < ./k8s/ms-1-deployment.yaml | kubectl apply -f -
+    - envsubst < ./k8s/deployment.yaml | kubectl apply -f -
     # - envsubst < ./k8s/ms-1-deployment.yaml | cat
