@@ -37,7 +37,7 @@ stages:
 
 deploy:
   stage: deploy
-  image: mcr.microsoft.com/azure-cli
+  image: ubuntu
   # before_script:
   #   - "MS_1_VERSION=$(awk -F ': ' '/^ms-version:/ {print $2}' version.yaml)"
   #   - export MS_1_VERSION=${MS_1_VERSION}
