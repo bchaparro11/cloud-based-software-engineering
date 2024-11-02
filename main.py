@@ -31,4 +31,4 @@ def contract_id(id = str):
 @app.get("/")
 def root():
     # print(os.getenv("IS_IT_WORKING"))
-    return {"answer":"Hello, friend"}
+    return {"answer":"Hello, Brother"}
