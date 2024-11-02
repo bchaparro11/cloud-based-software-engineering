@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: contract-analyzer-analysis-ms-c
-          # image: bchaparro4/contract_analyzer_analysis_ms:${MS_1_VERSION}
-          image: bchaparro4/contract_analyzer_analysis_ms:latest
+          image: bchaparro4/contract_analyzer_analysis_ms:${MS_1_VERSION}
+          # image: bchaparro4/contract_analyzer_analysis_ms:latest
           ports:
             - containerPort: 8000
