@@ -8,8 +8,8 @@ dotenv_path = Path('./.env')
 load_dotenv(dotenv_path=dotenv_path)
 
 client = MongoClient(os.getenv("URI"))
-db = client[os.getenv("DB")]
-col = db[os.getenv("COLLECTION")]
+db = client[str(os.getenv("DB"))]
+col = db[str(os.getenv("COLLECTION"))]
 
 app = FastAPI()
 
