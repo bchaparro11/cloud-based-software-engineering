@@ -7,7 +7,7 @@ import os
 dotenv_path = Path('./.env')
 load_dotenv(dotenv_path=dotenv_path)
 
-client = MongoClient(os.getenv("URI"))
+client = MongoClient(str(os.getenv("URI")))
 db = client[str(os.getenv("DB"))]
 col = db[str(os.getenv("COLLECTION"))]
 
